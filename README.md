@@ -1,6 +1,6 @@
-# Salish Sea Coastal Bluff Retreat Model
+## Salish Sea Coastal Bluff Retreat Model
 
-This model predicts **coastal bluff erosion rates in the Salish Sea and Puget Sound** in response to historical coastal conditions and changing sea levels.
+This model predicts **coastal bluff erosion rates in the Salish Sea and Puget Sound** in response to historical conditions and changing sea levels.
 
 ## Model Description
 
