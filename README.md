@@ -1,0 +1,1 @@
+Grossman, E., Horner, L., Vitousek, S., Chiasson, K., Little, C., and MacLennan, A., 2026 (in review),  Model of coastal bluff retreat accounting for complex geology of the Salish Sea: Scientific Data
