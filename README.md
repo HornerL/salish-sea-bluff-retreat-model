@@ -1,24 +1,25 @@
-Salish Sea Coastal Bluff Retreat Model
+# Salish Sea Coastal Bluff Retreat Model
 
-This model predicts coastal bluff erosion rates in the Salish Sea and Puget Sound in response to historical coastal conditions and changing sea levels.
+This model predicts **coastal bluff erosion rates in the Salish Sea and Puget Sound** in response to historical coastal conditions and changing sea levels.
 
-Model Description
+## Model Description
 
 The model is described in the following manuscript, currently in review:
 
-Grossman, E., Horner, L., Vitousek, S., Chiasson, K., Little, C., and MacLennan, A. (2026). Model of coastal bluff retreat accounting for complex geology of the Salish Sea. Scientific Data. In review.
+> Grossman, E., Horner, L., Vitousek, S., Chiasson, K., Little, C., and MacLennan, A. (2026). *Model of coastal bluff retreat accounting for complex geology of the Salish Sea*. **Scientific Data**. In review.
 
-Data Sources
-Digital Elevation Models
+## Data Sources
 
-Digital Elevation Models (DEMs) were sourced from the USGS Coastal National Elevation Database (CoNED).
+### Digital Elevation Models
 
-Model Boundary Conditions
+Digital Elevation Models (DEMs) were sourced from the [USGS Coastal National Elevation Database (CoNED)](https://www.usgs.gov/coastal-changes-and-impacts/coned).
 
-Wave, water-level, and other model boundary-condition datasets used by the model will be published as U.S. Geological Survey (USGS) Data Releases.
+### Model Boundary Conditions
+
+Wave, water-level, and other model boundary-condition datasets used by the model will be published as **U.S. Geological Survey (USGS) Data Releases**.
 
 Links and citations to these datasets will be added as they become publicly available.
 
-Status
+## Status
 
 This repository and README are under active development. Additional documentation, data-release links, and model information will be added as they become available.
