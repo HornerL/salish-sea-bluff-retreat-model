@@ -214,7 +214,6 @@ parameters = {"relative_wave_power_uncertainty": float(wp_error)}
 with open(WORKING_DIR + '/wp_uncertainty.json', "w") as f:
     json.dump(parameters, f, indent=4)
 
-
 # In[ ]:
 
 ### calculate Bearing of the transects ###
