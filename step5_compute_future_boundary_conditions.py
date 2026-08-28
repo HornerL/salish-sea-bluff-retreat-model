@@ -100,7 +100,7 @@ for k in range (0,4):
     waves6 = waves6.isel(station=needed_wave_idx)
     
     ## filename that the computed SLRxxx boundary conditions will be saved to
-    dfN_SLR = dfN_i + '_SLR' + str(SLR)
+    dfN_SLR = dfN_i + '_SLR' + SLR
     
     ### compute wave and wl boundary conditions for SLRxxx scenario ###
     

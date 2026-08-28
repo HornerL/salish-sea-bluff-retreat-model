@@ -1,9 +1,18 @@
 
 ### Project settings
 
-SLR = "100" # projected sea level rise by 2100, in cm
+# county or study area name
+county = "IslandCo"
 
-### Input data
+# year that initial bluff conditions are defined (based on the LiDAR)
+startyear = '2017'
+
+# year for future SLR projections
+stopyear = '2100'
+
+SLR = "100" # projected sea level rise in cm, by stopyear
+
+### Input data and directories
 
 # file containing known erosion rates
 FIELD_DATA = r"C:\Users\lhorner\Data\Bluff_erosion_CGS\Snohomish_forecasted_20260420\Data\ValidationSites_BoundaryConditions_20260417.csv"
@@ -30,10 +39,10 @@ WORKING_DIR = r"C:\Users\lhorner\Data\Bluff_erosion_CGS\IslandCo_forecasted_2026
 FINAL_DIR = r"C:\Users\lhorner\Data\Bluff_erosion_CGS\IslandCo_forecasted_20260612\Data"
 
 # filename that the computed boundary conditions will be saved to
-dfN_i = 'IslandCo_ERA5_Computed_BoundConds_20260612'
+dfN_i = 'IslandCo_ERA5_Computed_BoundConds_2026xxxx'
 
 # filename for 1st round of historical rate predictions (000 m SLR)
-hist_rates_file = 'IslandCo_ERA5_HistoricalRates_20260612'
+hist_rates_file = 'IslandCo_ERA5_HistoricalRates_2026xxxx'
 
 # directory where compiled time series wl/tide data will be stored (large files)
 WORKING_DICTS = r"E:\USGS_laptop\CoSMoS_WaveWL_outputs\working_dictionaries\Island"
