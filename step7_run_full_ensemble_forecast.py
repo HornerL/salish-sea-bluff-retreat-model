@@ -26,7 +26,7 @@ dfN_Fcast2 = 'JustEnsembleRates_' + county + '_' + SLR + 'cm_by' + stopyear
 
 df2 = pd.read_csv(TRANSECT_DATA)
 df_mvar = pd.read_csv(WORKING_DIR + '/' + hist_rates_file + '.csv')
-df_mvar2 = pd.read_csv(WORKING_DIR + 'CMIP6_SLR' + SLR +'_MVrates.csv')
+df_mvar2 = pd.read_csv(WORKING_DIR + '/CMIP6_SLR' + SLR +'_MVrates.csv')
 
 ## make sure all dataframes are in the same order
 
