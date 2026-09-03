@@ -28,7 +28,7 @@ df_Vars = df_Vars.dropna(subset=predictor_columns)
 ## create dataframe of the non-bootstrapped rate predictions, for plotting and comparison
 pred = res.get_prediction(df_Vars)
 nonstrap = pred.summary_frame()
-nonstrap['TransectID'] = df_Vars['TransectID']
+nonstrap['OutputID'] = df_Vars['OutputID']
 
 
 # ## Now we apply the regression to all our transects
@@ -146,10 +146,10 @@ averaged_res = combined_df.groupby(combined_df.index).mean()
 bs_processed = averaged_res['mean'].to_frame(name = 'MR')
 bs_processed['LR'] = pil_25
 bs_processed['UR'] = piu_975
-bs_processed['TransectID'] = df_Vars['TransectID']
+bs_processed['OutputID'] = df_Vars['OutputID']
 
 ## merge bootstrapped predictions to main variables dataframe
-df_mvar = pd.merge(bs_processed, df, on='TransectID', how='right')
+df_mvar = pd.merge(bs_processed, df, on='OutputID', how='right')
 
 ## convert negative rates to 0
 df_mvar['LR'] = np.where(df_mvar['LR'] < 0, 0.0, df_mvar['LR'])

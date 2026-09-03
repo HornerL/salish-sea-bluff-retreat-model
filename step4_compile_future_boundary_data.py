@@ -122,7 +122,7 @@ wl_time = defaultdict(list)
 
 DFMids_list = list(DFMids)
 
-print("Looping through WL files, loading data\n")
+print(" Looping through WL files, loading data\n")
 
 for i, pathwl in enumerate(filepathswl6):
 
@@ -176,7 +176,7 @@ tide_time = defaultdict(list)
 
 DFMids_list = list(DFMids)
 
-print("Looping through WL files, loading data\n")
+print(" Looping through WL files, loading data\n")
 
 for i, pathtd in enumerate(filepathstd6):
 
@@ -228,7 +228,7 @@ with open(WORKING_DICTS + "/ERA5_tide_SLR" + (SLR) + "_defaultdict.pkl", 'wb') a
 wl_lon = defaultdict(list)
 wl_lat = defaultdict(list)
 
-print("\nLooping through TWL files, loading data\n")
+print("\n Looping through TWL files, loading data\n")
 for j, filepathwl in enumerate(filepathswl6):
     print(f"\rProcessing file {j+1}/{len(filepathswl6)}", end="", flush=True)
     with xr.open_dataset(filepathwl) as wl:

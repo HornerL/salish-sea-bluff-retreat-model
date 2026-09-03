@@ -47,6 +47,8 @@ pred_list = []
 piu_list = []
 pil_list = []
 
+st = time.time()
+
 ## bootstraping to predict new transects with uncertainty
 
 #df_sort = df_field.sort_values(by='AnnualErosion_cm', ascending=True).reset_index(drop=True) 
@@ -91,8 +93,8 @@ for i in range (0, 1000):
     pred_list.append(pred_res[i]['mean'].to_list())
 
     et = time.time()
-    print(i)
-    #sys.stdout.write('\rElapsed time: %.ds; Estimated time remaining: %.2ds; Iterations Completed: %.d; Remaining Iterations: %s' %((et-st),((et-st1)*(1000-(i+1))),(i+1),(1000-(i+1))))
+    #print(i)
+    sys.stdout.write('\rElapsed time: %.ds; Iterations Completed: %.d; Remaining Iterations: %s' %((et-st),(i+1),(1000-(i+1))))
     sys.stdout.flush()
 
 ## get 95th percent interval of bootstrapped prediction intervals
@@ -134,4 +136,4 @@ df_mvar2 = pd.merge(bs_processed, df2, on='OutputID', how='right')
 df_mvar2['LR'] = np.where(df_mvar2['LR'] < 0, 0.0, df_mvar2['LR'])
 
 ## save SLRxxx projections
-df_mvar2.to_csv(WORKING_DIR + 'CMIP6_SLR' + SLR +'_MVrates.csv', index=False)
+df_mvar2.to_csv(WORKING_DIR + '/CMIP6_SLR' + SLR +'_MVrates.csv', index=False)

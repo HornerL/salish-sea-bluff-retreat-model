@@ -146,7 +146,7 @@ for i in range(len(DFMids)):
     if dist[idx] > 0.01:   # adjust tolerance (~0.01° ≈ 1 km)
         print(f"Warning: large distance match for {dfmid}: {dist[idx]}")
     hs = waves['Hs'][:,idx].values # get hs values
-    tm = waves['Tm'][:,idx].values / np.timedelta64(1, 's') # get tm values and convert from timedelta to float
+    tm = waves['Tm'][:,idx].values #/ np.timedelta64(1, 's') # get tm values and convert from timedelta to float if necessary
 
     ## filter waves for just times when water level is above threshold
      
@@ -202,6 +202,7 @@ dfnew['TWL_Skew'] = TWL_skew
 dfnew['Tidal_Range'] = Tidal_range  
 dfnew['NTR95'] = NTR_95th
 dfnew['NTR95_per_TWLrange'] = np.array(NTR_95th) / np.array(TWL_range)
+dfnew['Wave_idx'] = wave_idx_used 
 
 ## add new computed variables to full transects dataframe, and save boundary conds dataframe checkpoint
 df_merged = df.merge(dfnew, on='DFMid', how='left')
@@ -264,7 +265,7 @@ for j in range(len(DFMids)): #for all wave file names within the table df
     if dist[idx] > 0.01:   # adjust tolerance (~0.01° ≈ 1 km)
         print(f"Warning: large distance match for {dfmid}: {dist[idx]}")
     hs = waves['Hs'][:,idx].values # get the wave heights at that index
-    tm = waves['Tm'][:,idx].values / np.timedelta64(1, 's')  # get the wave periods at that index  
+    tm = waves['Tm'][:,idx].values #/ np.timedelta64(1, 's')  # get the wave periods at that index  
     valid = (tm > 0) & (hs > 0) & np.isfinite(tm) & np.isfinite(hs) # mask for only valid hs and tm values
     dep = 2.28 * hs[valid] - (68.5 * (hs[valid]**2/(g*tm[valid]**2))) # depth of closure, from Limber et al 
     depm = np.nanmean(dep) # mean depth of closure 

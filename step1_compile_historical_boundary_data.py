@@ -1,4 +1,4 @@
-### Only run this code one time per set of transects ###
+### Only run this code one time per set of transects, don't need to repeat for different SLR scenarios ###
 
 import pandas as pd
 from collections import defaultdict

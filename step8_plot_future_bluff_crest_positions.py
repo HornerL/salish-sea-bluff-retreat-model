@@ -67,8 +67,7 @@ for i in range(0, 3):  # Loop over three labels
     new_gdf = gpd.GeoDataFrame(geometry=new_points, crs=crest.crs)
     
     # Add only the columns you want to keep
-    #new_gdf['TransectID'] = crest['TransectID']   # <-- keep this column
-    new_gdf['OutputID'] = crest['TransectID']     # <-- keep this column
+    new_gdf['OutputID'] = crest['OutputID']     # <-- keep this column
     new_gdf['SectionID'] = crest['SectionID']         # <-- keep this column
     new_gdf['distance'] =  np.round(dist,2)
     

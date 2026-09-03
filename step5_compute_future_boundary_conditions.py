@@ -211,7 +211,7 @@ for k in range (0,4):
             print(f"Warning: large distance match for {dfmid}: {dist[idx]}")
         hs_cmipavg = waves6['hs_CmipDiff'].mean(dim='cmip6')[:,idx].values # average the hs cmip6 diff values
         hs = waves6['Hs'][:,idx].values + hs_cmipavg ## get the wave heights at that index
-        tm = waves6['Tm'][:,idx].values / np.timedelta64(1, 's') # get tm values and convert from timedelta to float
+        tm = waves6['Tm'][:,idx].values #/ np.timedelta64(1, 's') # get tm values and convert from timedelta to float
     
         ## filter waves for just times when water level is above threshold
          
@@ -278,7 +278,7 @@ for k in range (0,4):
     dfnew2['NTR95'] = dfnew2['NTR95'] + slr
     dfnew2['NTR95_per_TWLRange'] = (dfnew2['NTR95']) / dfnew2['TWL_Range']
     
-    dfnew2.to_csv(WORKING_DIR + '/CMIP6_SLR'+ SLR +'_WP_Chunk'+ k +'.csv')
+    dfnew2.to_csv(WORKING_DIR + '/CMIP6_SLR'+ SLR +'_WP_Chunk'+ str(k) +'.csv')
 
 
 # In[ ]:
@@ -303,7 +303,7 @@ df_merged.to_csv(WORKING_DIR + '/' + dfN_SLR + '.csv', index=False)
 
 df2 = df_merged.copy()
 
-df_mvar = df_mvar.sort_values(by='TransectID')
+df_mvar = df_mvar.sort_values(by='OutputID')
 df2 = df2.sort_values(by='OutputID')
 df2['Bearing'] = df_mvar['Bearing']
 

@@ -19,18 +19,18 @@ import time
 import sys
 import os
 
-from config import WORKING_DIR, WORKING_DICTS, SLR, dfN_i, ERA5_WAVES, TRANSECT_DATA, county, startyear, stopyear
+from config import WORKING_DIR, WORKING_DICTS, SLR, ERA5_WAVES, TRANSECT_DATA, county, startyear, stopyear, hist_rates_file
 
 dfN_Fcast = 'AllForecastRates_' + county + '_' + SLR + 'cm_by' + stopyear
 dfN_Fcast2 = 'JustEnsembleRates_' + county + '_' + SLR + 'cm_by' + stopyear
 
 df2 = pd.read_csv(TRANSECT_DATA)
-df_mvar = pd.read_csv(WORKING_DIR + '/' + dfN_i + '.csv')
+df_mvar = pd.read_csv(WORKING_DIR + '/' + hist_rates_file + '.csv')
 df_mvar2 = pd.read_csv(WORKING_DIR + 'CMIP6_SLR' + SLR +'_MVrates.csv')
 
 ## make sure all dataframes are in the same order
 
-df_mvar = df_mvar.sort_values(by='TransectID')
+df_mvar = df_mvar.sort_values(by='OutputID')
 df_mvar2 = df_mvar2.sort_values(by='OutputID')
 df2 = df2.sort_values(by='OutputID')
 
@@ -68,7 +68,7 @@ wave_lons = waves['lon'].values
 wave_lats = waves['lat'].values
 wv_idx = []
 
-bad_idx = np.where(np.all(np.isnan(waves['Hs'][:,0].values)))[0]
+bad_idx = np.where(np.all(np.isnan(waves['Hs'].values), axis=1))[0]
 
 for j in range(len(df_mvar)):
 
@@ -95,7 +95,7 @@ for key, arr_list in station_data.items():
     wl_mean_dict[key] = np.nanmean(wl_all)
 
 hs_mean = np.nanmean(waves['Hs'].values, axis=0)
-tm_mean = np.nanmean(waves['Tm'].values / np.timedelta64(1, 's'), axis=0)
+tm_mean = np.nanmean(waves['Tm'].values, axis=0) #/ np.timedelta64(1, 's'), axis=0)
 
 
 # define function to remove outliers
@@ -134,18 +134,18 @@ def make_years(start_yr, end_yr):
 yrs = make_years(int(startyear), int(stopyear)) # each year that we will calculate a rate for, 20 yr intervals
 
 ## linear interpolation of MV regression rates 000 and xxx slr
-mv_start = df_mvar[['p_Rate','pi_lower','pi_upper']].values
-mv_stop = df_mvar2[['Rate','pi_lower','pi_upper']].values
+mv_start = df_mvar[['MR','LR','UR']].values
+mv_stop = df_mvar2[['MR','LR','UR']].values
 mv_interp = {}
 for i, yr in enumerate(yrs):
-    f = (yr - int(startyear) / (int(stopyear) - int(startyear)))  # interpolation fraction
+    f = f = (yr - int(startyear)) / (int(stopyear) - int(startyear))  # interpolation fraction
     mv_interp[yr] = mv_start + f * (mv_stop - mv_start)
 
 swashes = []
 setups = []
 
    
-cSL = cSLR / 100 # sea level at yr 2100, in meters
+cSL = cSLR[0] / 100 # sea level at yr 2100, in meters
        
 # slr quadratic coefficients a, b, c
 A = (cSL - 0.3) / 10000
@@ -158,8 +158,8 @@ d = 1022.7 #kg/m3, density
 con = (d*g)/8
 
 df = df_mvar
-df['TransectID'] = df['TransectID'].astype(int)
-df = df.drop_duplicates(subset=['TransectID'], keep='first')
+df['OutputID'] = df['OutputID'].astype(int)
+df = df.drop_duplicates(subset=['OutputID'], keep='first')
 df.reset_index(drop=True, inplace=True)
 
 df_w1 = pd.DataFrame() #dataframe with all vars
@@ -172,7 +172,6 @@ st = time.time()
 
 j = 0
 for j in range(len(df)): #for all wave file names within the table df
-    st1 = time.time()
 
     DFMid = df['DFMid'][j] # wave and water level site ID
     
@@ -188,8 +187,8 @@ for j in range(len(df)): #for all wave file names within the table df
     tm = tm_mean[idx]
 
     
-    df_w1.loc[j,'Pt_ID'] = int(df.TransectID[j])
-    df_w2.loc[j,'Pt_ID'] = int(df.TransectID[j])
+    df_w1.loc[j,'Pt_ID'] = int(df.OutputID[j])
+    df_w2.loc[j,'Pt_ID'] = int(df.OutputID[j])
     
     # Physical Bluff Attributes
     Toe = df.BluffToe_Elev[j]
@@ -221,12 +220,12 @@ for j in range(len(df)): #for all wave file names within the table df
     
     #Calibrate without SLR - Calculate Omega to calc K
     if Toe > MTL:
-        #print('Toe > MTL, ' + str(df['TransectID'][j]) )
+        #print('Toe > MTL, ' + str(df['OutputID'][j]) )
        
         TWL = (R2 + wl)/Toe #slr (m)
         TWL_err = TWL * np.sqrt((R2_err**2 + wl_err**2)/(R2 + wl)**2 + (elev_err/Toe)**2)
     else:
-        print('Toe < MTL, ' + str(df['TransectID'][j]))
+        print('Toe < MTL, ' + str(df['OutputID'][j]))
         TWL = (ns + wl)/Toe
         TWL_err = TWL * np.sqrt((ns_err**2 + wl_err**2)/(ns + wl)**2 + (elev_err/Toe)**2)
     
@@ -401,18 +400,18 @@ for j in range(len(df)): #for all wave file names within the table df
                 df_w2.loc[j,'%s_%sSLR_Rate' %((Ratevars[y]),(str(yr)))] = np.around((Final_Pred + Final_Uncert),2)
     
     et = time.time()
-    sys.stdout.write('\rElapsed time: %.ds; Estimated time remaining: %.2ds; Sites Completed: %.d; Remaining Sites: %s' %((et-st),((et-st1)*(len(df)-(j+1))),(j+1),(len(df)-(j+1))))
+    sys.stdout.write('\rElapsed time: %.ds; Sites Completed: %.d; Remaining Sites: %s' %((et-st),(j+1),(len(df)-(j+1))))
     sys.stdout.flush()
 
-df_w1['TransectID'] = df_w1['Pt_ID'].astype(int)
-df_w2['TransectID'] = df_w2['Pt_ID'].astype(int)
+df_w1['OutputID'] = df_w1['Pt_ID'].astype(int)
+df_w2['OutputID'] = df_w2['Pt_ID'].astype(int)
 
 
 ### Save Dataframe ####
 fdf = os.path.join(WORKING_DIR,'{}.csv'.format(dfN_Fcast)) #saves dataframe to specified folder
 fdf2 = os.path.join(WORKING_DIR,'{}.csv'.format(dfN_Fcast2)) #saves dataframe to specified folder
-df_Fcast = pd.merge(df, df_w1, on="TransectID", how='left') #merge with intial dataframe, match by map label
-df_Fcast2 = pd.merge(df, df_w2, on="TransectID", how='left') #merge with intial dataframe, match by map label
+df_Fcast = pd.merge(df, df_w1, on="OutputID", how='left') #merge with intial dataframe, match by map label
+df_Fcast2 = pd.merge(df, df_w2, on="OutputID", how='left') #merge with intial dataframe, match by map label
 df_Fcast.to_csv(str(fdf))
 df_Fcast2.to_csv(str(fdf2))
 
