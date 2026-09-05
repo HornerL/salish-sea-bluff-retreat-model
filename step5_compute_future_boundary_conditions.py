@@ -10,6 +10,9 @@ from scipy.stats import skew
 
 from config import WORKING_DIR, WORKING_DICTS, SLR, CMIP6WAVES, dfN_i, TRANSECT_DATA
 
+## get list of unique wl stations from the transects
+df = pd.read_csv(TRANSECT_DATA)
+DFMids = df['DFMid'].unique()
 
 ### Load waves, WL and Tide data here if you have already compiled them for the given SLR
 
@@ -23,8 +26,8 @@ for k in range (0,4):
     with open(WORKING_DICTS + "/ERA5_WL_SLR" + SLR + "_defaultdict.pkl", 'rb') as f:
         wl_data = pickle.load(f)
        
-    all_stations = list(wl_data.keys())
-    station_chunks = np.array_split(all_stations, n_chunks)   
+    #all_stations = list(wl_data.keys())
+    station_chunks = np.array_split(DFMids, n_chunks)   
     chunk = station_chunks[k] 
         
     wl_data = {k: wl_data[k] for k in chunk}
