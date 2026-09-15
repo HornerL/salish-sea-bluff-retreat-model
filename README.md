@@ -6,7 +6,13 @@ This model predicts **coastal bluff erosion rates in the Salish Sea and Puget So
 
 The model is described in the following manuscript, currently in review:
 
-> Grossman, E., Horner, L., Vitousek, S., Chiasson, K., Little, C., and MacLennan, A. (2026). *Model of coastal bluff retreat accounting for complex geology of the Salish Sea*. **Scientific Data**. In review.
+> Grossman, E., Horner, L., Vitousek, S., Chiasson, K., Little, C., and MacLennan, A., 2026, *Model of coastal bluff retreat accounting for complex geology of the Salish Sea*, **Scientific Data**, In review.
+
+## Model Results
+
+The model results are published here as a USGS Data release:
+
+> Grossman, E.E., Horner, L., Foxgrover, A.C., and O’Neill, A.C., 2026, *Projections of coastal bluff retreat in Puget Sound*, **U.S. Geological Survey data release**, https://doi.org/10.5066/P13GUZTZ.
 
 ## Data Sources
 
@@ -16,9 +22,9 @@ Digital Elevation Models (DEMs) were sourced from the [USGS Coastal National Ele
 
 ### Model Boundary Conditions
 
-Wave, water-level, and other model boundary-condition datasets used by the model will be published as **U.S. Geological Survey (USGS) Data Releases**.
+Wave and water level data used in this model were sourced from the [USGS Coastal Storm Modeling System (CoSMoS): Salish Sea](https://cmgds.marine.usgs.gov/data-releases/community/Cosmos_SalishSea/).
 
-Links and citations to these datasets will be added as they become publicly available.
+Other model boundary conditions will be made available as a USGS data release, pending publication. 
 
 ## Status
 
