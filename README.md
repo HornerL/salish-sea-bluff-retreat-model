@@ -24,7 +24,7 @@ Digital Elevation Models (DEMs) were sourced from the [USGS Coastal National Ele
 
 Wave and water level data used in this model were sourced from the [USGS Coastal Storm Modeling System (CoSMoS): Salish Sea](https://cmgds.marine.usgs.gov/data-releases/community/Cosmos_SalishSea/).
 
-Other model boundary conditions will be made available as a USGS data release, pending publication. 
+Other model boundary conditions area available in the model results USGS Data Release. 
 
 ## Status
 
