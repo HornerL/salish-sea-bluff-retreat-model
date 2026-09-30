@@ -6,7 +6,7 @@ This model predicts **coastal bluff erosion rates in the Salish Sea and Puget So
 
 The model is described in the following manuscript, currently in review:
 
-> Grossman, E., Horner, L., Vitousek, S., Chiasson, K., Little, C., and MacLennan, A., 2026, *Model of coastal bluff retreat accounting for complex geology of the Salish Sea*, **Scientific Data**, In review.
+> Grossman, E., Horner, L., Vitousek, S., Chiasson, K., Little, C., and MacLennan, A., 2026, *Model of coastal bluff retreat accounting for complex geology of the Salish Sea*, **Scientific Data**, In review. https://doi.org/10.21203/rs.3.rs-10884802/v1.
 
 ## Model Results
 
